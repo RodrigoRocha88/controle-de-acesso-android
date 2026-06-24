@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.controledeacesso.model.LogModel
+import androidx.appcompat.app.AlertDialog
 
 class DatabaseHelper(context: Context) :
     SQLiteOpenHelper(context, "controle.db", null, 1) {
@@ -39,6 +40,44 @@ class DatabaseHelper(context: Context) :
 
         db.insert("logs", null, values)
     }
+
+    fun atualizarLog(
+        id: Int,
+        nome: String,
+        tipo: String,
+        data: String
+    ): Int {
+
+        val db = writableDatabase
+
+        val values = ContentValues()
+        values.put("nome", nome)
+        values.put("tipo", tipo)
+        values.put("data", data)
+
+        return db.update(
+            "logs",
+            values,
+            "id=?",
+            arrayOf(id.toString())
+        )
+    }
+
+    fun deletarLog(id: Int): Int {
+
+        val db = writableDatabase
+
+        return db.delete(
+            "logs",
+            "id=?",
+            arrayOf(id.toString())
+        )
+    }
+
+    fun apagarTodosLogs() {
+        writableDatabase.delete("logs", null, null)
+    }
+
 
     fun listarLogs(): MutableList<LogModel> {
 

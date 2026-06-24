@@ -9,6 +9,7 @@ import com.example.controledeacesso.databinding.ActivityMainBinding
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import androidx.appcompat.app.AlertDialog
 
 class MainActivity : AppCompatActivity() {
 
